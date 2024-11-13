@@ -13,7 +13,7 @@ you can simply do `git push` once it has been set up.
 5. If you want to merge your branch with the main, on github a popup will be available for recent pushes
 and you can click Create Pull Request. Enter any relevant information, and then create to allow 
 team members to review your changes before merging to the main.
-6. Once a pull request is review and accepted, merge then delete the local branch. You are then
+6. Once a pull request is reviewed and accepted, merge then delete the remote branch. You are then
 welcome to delete your local version of the branch by first moving out of it to the main
 with `git checkout main` then `git branch -D <branch-name>`. 
 7. To make sure your main is updated after a pull request, use `git pull` to retrieve from the

@@ -18,3 +18,12 @@ welcome to delete your local version of the branch by first moving out of it to 
 with `git checkout main` then `git branch -D <branch-name>`. 
 7. To make sure your main is updated after a pull request, use `git pull` to retrieve from the
 remote repository.
+
+# Getting Maps API Key Working
+1. Find your root level `local.properties` file and put in MAPS_API_KEY="yourkey"
+2. Find your `AndroidManifest.xml` and put this code in the application layer of the xml `<meta-data
+   android:name="com.google.android.geo.API_KEY"
+   android:value="${MAPS_API_KEY}" />`
+3. Add maps dependency to app level build.gradle `implementation libs.play.services.maps`
+4. 
+

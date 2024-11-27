@@ -20,10 +20,7 @@ with `git checkout main` then `git branch -D <branch-name>`.
 remote repository.
 
 # Getting Maps API Key Working
-1. Find your root level `local.properties` file and put in MAPS_API_KEY="yourkey"
-2. Find your `AndroidManifest.xml` and put this code in the application layer of the xml `<meta-data
-   android:name="com.google.android.geo.API_KEY"
-   android:value="${MAPS_API_KEY}" />`
-3. Add maps dependency to app level build.gradle `implementation libs.play.services.maps`
-4. 
+1. Find your maps API key from google cloud console
+2. Enable the use of this key for com.example.carmate with your SHA1 package signature for your computer
+3. Find your root level `local.properties` file and put in MAPS_API_KEY="yourkey"
 

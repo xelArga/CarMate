@@ -1,9 +1,6 @@
 package com.example.carmate;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,27 +10,18 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-
-public class MainActivity extends AppCompatActivity {
-    Button button;
+public class ProfileActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_profile);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-    }
-
-    public void onClick(View view){
-        Intent intent = new Intent(this, MapActivity.class);
-        startActivity(intent);
     }
     private void setBottomNavigationSelectedItem(int itemId) {
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -43,5 +31,9 @@ public class MainActivity extends AppCompatActivity {
             ((BottomNavigationFragment) fragment).setSelectedMenuItem(itemId);
         }
     }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setBottomNavigationSelectedItem(R.id.navigation_profile);
+    }
 }

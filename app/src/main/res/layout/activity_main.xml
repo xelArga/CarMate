@@ -7,32 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="204dp"
-        android:onClick="onClick"
-        android:text="Button"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.437"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="406dp"
-        android:layout_height="108dp"
+        android:layout_width="409dp"
+        android:layout_height="109dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_above="@id/bottom_navigation_fragment"
-            app:layout_anchor="@+id/fragment_container"
-            app:layout_anchorGravity="center" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/bottom_navigation_fragment"
@@ -59,11 +41,12 @@
         android:id="@+id/findDriverText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="20dp"
         android:text="Find Driver"
-        android:textSize="20sp"
+        android:textSize="34sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/connectView" />
 
@@ -71,13 +54,13 @@
         android:id="@+id/findPassengerText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="24dp"
         android:text="Find Passenger"
-        android:textSize="20sp"
+        android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/findDriverText"
-        app:layout_constraintTop_toBottomOf="@+id/connectView" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/driverButton" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -92,6 +75,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="CarMate"
         app:titleTextColor="#FFFFFF" />
+
+    <ImageButton
+        android:id="@+id/driverButton"
+        android:layout_width="109dp"
+        android:layout_height="111dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/roundcorner"
+        android:backgroundTint="#434343"
+        android:onClick="startDriver"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/findDriverText"
+        app:srcCompat="@drawable/car" />
+
+    <ImageButton
+        android:id="@+id/passengerButton"
+        android:layout_width="109dp"
+        android:layout_height="111dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/roundcorner"
+        android:backgroundTint="#434343"
+        android:onClick="startPassenger"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/findPassengerText"
+        app:srcCompat="@drawable/person" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

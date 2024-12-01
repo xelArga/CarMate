@@ -1,30 +1,27 @@
 package com.example.carmate;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 
-public class User {
+public class User implements Serializable {
     private String firstName, lastName;
-    private int age;
-    private String imgLocation;
+    private int profileImageId;
     public String[] driverOrPassenger; //for printing if you know which is their main one
     private String mainStatus;
     private double rating;
     private int ratingCount;
-    private LinkedList<User> friendsList;
     //it may be easier for the User to store an actual image object - we'll see
     //just a template for us to use...
     //add any more fields and their respective setters and getters as needed
     //will need more arraylist/linkedlist for previous rides, filters etc.
 
-    public User(String firstName, String lastName, String imgLocation, int age, String mainStatus){
+    public User(String firstName, String lastName, int imgId, String mainStatus){
         setFirstName(firstName);
         setLastName(lastName);
-        setAge(age);
-        setImgLocation(imgLocation);
+        setImgId(imgId);
         driverOrPassenger = new String[]{"driver", "passenger"};
         setMainStatus(mainStatus);
         ratingCount = 0;
-        friendsList = new LinkedList<User>();
     }
 
     public String getFirstName(){
@@ -39,28 +36,20 @@ public class User {
         return this.lastName;
     }
 
-    public void setLastName(String firstName){
+    public void setLastName(String lastName){
         this.lastName = lastName;
     }
 
     public String getFullName(){
-        return this.firstName + " " + this.lastName;
+        return getFirstName() + " " + getLastName();
     }
 
-    public int getAge(){
-        return this.age;
+    public void setImgId(int profileImageId){
+        this.profileImageId = profileImageId;
     }
 
-    public void setAge(int age){
-        this.age = age;
-    }
-
-    public void setImgLocation(String imgLocation){
-        this.imgLocation = imgLocation;
-    }
-
-    public String getImgLocation(){
-        return this.imgLocation;
+    public int getImgId(){
+        return this.profileImageId;
     }
 
     public String getMainStatus(){
@@ -89,22 +78,5 @@ public class User {
         }
 
     }
-
-    public LinkedList<User> getFriendsList(){
-        return this.friendsList;
-    }
-
-    public void addFriend(User friend){
-        if (!friendsList.contains(friend)) {
-            friendsList.add(friend);
-        }
-
-    }
-
-
-
-
-
-
 
 }

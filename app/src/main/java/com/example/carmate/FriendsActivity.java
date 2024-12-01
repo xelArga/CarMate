@@ -1,6 +1,8 @@
 package com.example.carmate;
 
 import android.os.Bundle;
+import android.widget.ListView;
+import android.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 public class FriendsActivity extends AppCompatActivity {
+    SearchView friendSearch;
+    ListView friendList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

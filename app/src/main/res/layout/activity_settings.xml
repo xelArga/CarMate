@@ -8,19 +8,13 @@
     tools:context=".SettingsActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="406dp"
-        android:layout_height="108dp"
+        android:layout_width="409dp"
+        android:layout_height="109dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_above="@id/bottom_navigation_fragment"
-            app:layout_anchor="@+id/fragment_container"
-            app:layout_anchorGravity="center" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/bottom_navigation_fragment"

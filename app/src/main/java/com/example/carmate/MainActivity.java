@@ -2,6 +2,7 @@ package com.example.carmate;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -13,11 +14,18 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
     Button button;
+    List<User> users;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,11 +36,20 @@ public class MainActivity extends AppCompatActivity {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
+
         });
+
     }
 
-    public void onClick(View view){
+    public void startDriver(View view){
         Intent intent = new Intent(this, MapActivity.class);
+        intent.putExtra("selection",  "driver");
+        startActivity(intent);
+    }
+
+    public void startPassenger(View view){
+        Intent intent = new Intent(this, MapActivity.class);
+        intent.putExtra("selection",  "passenger");
         startActivity(intent);
     }
     private void setBottomNavigationSelectedItem(int itemId) {
@@ -43,5 +60,7 @@ public class MainActivity extends AppCompatActivity {
             ((BottomNavigationFragment) fragment).setSelectedMenuItem(itemId);
         }
     }
+
+
 
 }

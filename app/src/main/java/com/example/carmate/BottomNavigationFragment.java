@@ -7,13 +7,15 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+
+import java.io.Serializable;
+import java.util.List;
 
 public class BottomNavigationFragment extends Fragment {
     BottomNavigationView bottomNavigationView;
@@ -46,7 +48,6 @@ public class BottomNavigationFragment extends Fragment {
 
                 if (targetActivity != null) {
                     Intent intent = new Intent(context, targetActivity);
-                    intent.putExtra("selected_nav_item", itemId);
                     startActivity(intent);
                     requireActivity().finish();
                 }

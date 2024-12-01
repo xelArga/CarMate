@@ -8,19 +8,13 @@
     tools:context=".FriendsActivity">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="406dp"
-        android:layout_height="108dp"
+        android:layout_width="409dp"
+        android:layout_height="109dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_above="@id/bottom_navigation_fragment"
-            app:layout_anchor="@+id/fragment_container"
-            app:layout_anchorGravity="center" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/bottom_navigation_fragment"
@@ -29,6 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="409dp"
@@ -42,5 +37,29 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="CarMate"
         app:titleTextColor="#FFFFFF" />
+
+    <ListView
+        android:id="@+id/friendListView"
+        android:layout_width="410dp"
+        android:layout_height="394dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friendSearchView" />
+
+    <SearchView
+        android:id="@+id/friendSearchView"
+        android:layout_width="409dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add friend"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="547dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

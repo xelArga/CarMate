@@ -10,28 +10,23 @@
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="358dp"
-        android:layout_height="554dp"
-        android:layout_marginTop="52dp"
+        android:layout_width="409dp"
+        android:layout_height="417dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/searchView" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="406dp"
-        android:layout_height="108dp"
+        android:id="@+id/coordinatorLayout"
+        android:layout_width="409dp"
+        android:layout_height="109dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent">
 
-        <FrameLayout
-            android:id="@+id/fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_above="@id/bottom_navigation_fragment"
-            app:layout_anchor="@+id/fragment_container"
-            app:layout_anchorGravity="center" />
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/bottom_navigation_fragment"
@@ -39,7 +34,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom" />
+
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="409dp"
@@ -53,4 +50,87 @@
         app:layout_constraintTop_toTopOf="parent"
         app:title="CarMate"
         app:titleTextColor="#FFFFFF" />
+
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="410dp"
+        android:layout_height="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currentTextView" />
+
+    <TextView
+        android:id="@+id/currentTextView"
+        android:layout_width="349dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="4dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <ImageButton
+        android:id="@+id/person1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="48dp"
+        android:backgroundTint="#434343"
+        android:scaleType="fitXY"
+        android:tag="jason"
+        app:layout_constraintBottom_toTopOf="@+id/viewButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/person" />
+
+    <ImageButton
+        android:id="@+id/person2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="#434343"
+        android:scaleType="fitXY"
+        android:tag="jenny"
+        app:layout_constraintBottom_toTopOf="@+id/person3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/person" />
+
+    <ImageButton
+        android:id="@+id/person3"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="#434343"
+        android:scaleType="fitXY"
+        android:tag="chris"
+        app:layout_constraintBottom_toTopOf="@+id/person1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/person" />
+
+    <Button
+        android:id="@+id/viewButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="40dp"
+        android:onClick="viewGroupClick"
+        android:text="View Group"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/map" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="12dp"
+        android:onClick="startRide"
+        android:text="Start Ride!"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/map" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

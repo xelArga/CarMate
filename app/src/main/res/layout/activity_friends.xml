@@ -55,11 +55,14 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/friendButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:onClick="addFriendByCode"
         android:text="Add friend"
-        tools:layout_editor_absoluteX="148dp"
-        tools:layout_editor_absoluteY="547dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friendListView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

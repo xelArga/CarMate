@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp">
+
+    <ImageView
+        android:id="@+id/userDetailProfileImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/person"
+        android:scaleType="centerCrop"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/userDetailName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User Name"
+        android:textSize="22sp"
+        android:layout_below="@id/userDetailProfileImage"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/userRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/userDetailName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:text="User Rating"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/blockButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewProfileButton"
+        android:layout_marginTop="31dp"
+        android:backgroundTint="#FD1212"
+        android:text="Block" />
+
+    <Button
+        android:id="@+id/viewProfileButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userRating"
+        android:layout_marginTop="34dp"
+        android:text="View Profile" />
+</RelativeLayout>

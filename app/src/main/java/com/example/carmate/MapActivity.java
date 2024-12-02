@@ -95,10 +95,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 //        users.add(new User("Jason", "Smith", R.drawable.jason, "passenger"));
 //        users.add(new User("Jenny", "Green", R.drawable.jenny, "passenger")); //code for loading in test users
 //        users.add(new User("Chris", "Crank", R.drawable.chris, "driver"));
-//
 //        saveUsers(users);
         users = loadUsers();
-        Log.d("Users", users.get(0).getFirstName());
 
         Intent intent = getIntent();
         currentAction = findViewById(R.id.currentTextView);

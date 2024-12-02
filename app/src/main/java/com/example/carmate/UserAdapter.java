@@ -9,6 +9,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,6 +21,7 @@ public class UserAdapter extends BaseAdapter implements Filterable {
     private Context context;
     private List<User> userList;
     private List<User> filteredUserList;
+    private final boolean isChatList;
     private OnChatClickListener onChatClickListener;
 
     public UserAdapter(Context context, List<User> userList, OnChatClickListener onChatClickListener) {
@@ -27,6 +29,12 @@ public class UserAdapter extends BaseAdapter implements Filterable {
         this.userList = new ArrayList<>(userList);
         this.filteredUserList = userList;
         this.onChatClickListener = onChatClickListener;
+    }
+
+    public UserAdapter(Context context, List<User> userList) {
+        this.context = context;
+        this.userList = new ArrayList<>(userList);
+        this.filteredUserList = userList;
     }
 
     @Override
@@ -54,7 +62,6 @@ public class UserAdapter extends BaseAdapter implements Filterable {
         User user = getItem(position);
         TextView userNameTextView = convertView.findViewById(R.id.userName);
         ImageView profileImageView = convertView.findViewById(R.id.userProfileImage);
-        ImageView chatIconView = convertView.findViewById(R.id.chatIcon);
 
         userNameTextView.setText(user.getFullName());
         profileImageView.setImageResource(user.getImgId());
@@ -96,12 +103,13 @@ public class UserAdapter extends BaseAdapter implements Filterable {
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 filteredUserList = (List<User>) results.values;
-                notifyDataSetChanged(); // Update the ListView
+                notifyDataSetChanged();
             }
         };
     }
     public interface OnChatClickListener {
         void onChatClick(User user);
     }
+
 }
 

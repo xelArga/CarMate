@@ -2,6 +2,7 @@ package com.example.carmate;
 
 import java.io.Serializable;
 import java.util.LinkedList;
+import java.util.List;
 
 public class User implements Serializable {
     private String firstName, lastName;
@@ -10,6 +11,7 @@ public class User implements Serializable {
     private String mainStatus;
     private double rating;
     private int ratingCount;
+    List<Message> messages;
     //it may be easier for the User to store an actual image object - we'll see
     //just a template for us to use...
     //add any more fields and their respective setters and getters as needed

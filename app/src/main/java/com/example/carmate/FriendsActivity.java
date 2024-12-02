@@ -94,7 +94,6 @@ public class FriendsActivity extends AppCompatActivity {
                 }
             });
 
-            // Handle "Cancel" button click
             cancelButton.setOnClickListener(v2 -> addFriendDialog.dismiss());
         });
 

@@ -38,8 +38,8 @@ public class BottomNavigationFragment extends Fragment {
                     targetActivity = MainActivity.class;
                 } else if (itemId == R.id.navigation_friends && !(context instanceof FriendsActivity)) {
                     targetActivity = FriendsActivity.class;
-                } else if (itemId == R.id.navigation_chat && !(context instanceof ChatActivity)) {
-                    targetActivity = ChatActivity.class;
+                } else if (itemId == R.id.navigation_chat && !(context instanceof ChatListActivity)) {
+                    targetActivity = ChatListActivity.class;
                 } else if (itemId == R.id.navigation_profile && !(context instanceof ProfileActivity)) {
                     targetActivity = ProfileActivity.class;
                 } else if (itemId == R.id.navigation_settings && !(context instanceof SettingsActivity)) {

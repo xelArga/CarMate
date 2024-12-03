@@ -96,7 +96,7 @@
         android:layout_marginTop="16dp"
         android:text="Main Status"
         android:textAlignment="center"
-        android:textAllCaps="false"
+        android:textAllCaps="true"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -108,14 +108,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
+        android:onClick="saveProfile"
         android:text="Save Profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/preferencesSpinner" />
 
     <Spinner
-        android:id="@+id/filterSpinner"
+        android:id="@+id/preferencesSpinner"
         android:layout_width="285dp"
         android:layout_height="35dp"
         android:layout_marginTop="28dp"

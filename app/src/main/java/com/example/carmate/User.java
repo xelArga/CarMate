@@ -11,7 +11,7 @@ public class User implements Serializable {
     private int profileImageId;
     public String[] driverOrPassenger; //for printing if you know which is their main one
     private String mainStatus;
-
+    int preference;
     private double rating;
     private int ratingCount;
     List<Message> messages;
@@ -87,6 +87,18 @@ public class User implements Serializable {
             this.rating = sumRating / ratingCount;
         }
 
+    }
+
+    public void setPreferences (int pref) {
+        if(pref > 4 || pref < 0){
+            this.preference = 0;
+        }else{
+            this.preference = pref;
+        }
+    }
+
+    public int getPreference(){
+        return this.preference;
     }
 
 }

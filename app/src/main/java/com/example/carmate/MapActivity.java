@@ -9,10 +9,13 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.SearchView;
 import android.widget.Toast;
@@ -72,6 +75,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     boolean[] selected = new boolean[3];
     Button startButton;
     Button groupButton;
+    Spinner preferences;
+    User user;
+    ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,8 +101,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 //        users.add(new User("Jason", "Smith", R.drawable.jason, "passenger"));
 //        users.add(new User("Jenny", "Green", R.drawable.jenny, "passenger")); //code for loading in test users
 //        users.add(new User("Chris", "Crank", R.drawable.chris, "driver"));
+//        users.get(0).setPreferences(0);
+//        users.get(1).setPreferences(4);
+//        users.get(2).setPreferences(1);
 //        saveUsers(users);
         users = loadUsers();
+        user = loadUser();
 
         Intent intent = getIntent();
         currentAction = findViewById(R.id.currentTextView);
@@ -112,6 +122,15 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         startButton.setVisibility(View.GONE);
         groupButton = findViewById(R.id.viewButton);
         groupButton.setVisibility(View.GONE);
+        backButton = findViewById(R.id.mapBackButton);
+        preferences = findViewById(R.id.mapPreferences);
+        ArrayAdapter<CharSequence> adapter =
+                ArrayAdapter.createFromResource(this,
+                        R.array.preferences, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        preferences.setAdapter(adapter);
+        preferences.setSelection(user.getPreference());
+
         searchView = findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -132,7 +151,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         person1.setOnClickListener(buttonClickListener);
         person2.setOnClickListener(buttonClickListener);
         person3.setOnClickListener(buttonClickListener);
+        preferences.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                user.setPreferences(position);
+                checkButtonVisibility();
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
+
+    public void backClick(View view){
+        finish();
     }
 
     private void showPopup(View anchorView, String buttonTag) {
@@ -191,14 +226,36 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 popupWindow.dismiss();
             }
         });
+
     }
 
-    public void checkButtonVisibility(){
-        if(showConnections && action.equals("passenger")){
-            person1.setVisibility(View.VISIBLE);
-            person2.setVisibility(View.VISIBLE);
-        }else if(showConnections){
-            person3.setVisibility(View.VISIBLE);
+    public boolean filterUsers(User user1, User user2){
+        return user1.getPreference() == 0 || user2.getPreference() == 0 ||
+                user1.getPreference() == user2.getPreference() ||
+                user1.getPreference() < 3 && user2.getPreference() > 2 ||
+                user2.getPreference() < 3 && user1.getPreference() > 2;
+    }
+
+
+    public void checkButtonVisibility() {
+        if (showConnections && action.equals("passenger")) {
+            if (filterUsers(user, users.get(0)) && !selected[0]) {
+                person1.setVisibility(View.VISIBLE);
+            } else {
+                person1.setVisibility(View.GONE);
+            }
+
+            if (filterUsers(user, users.get(1)) && !selected[1]) {
+                person2.setVisibility(View.VISIBLE);
+            } else {
+                person2.setVisibility(View.GONE);
+            }
+        } else if (showConnections) {
+            if (filterUsers(user, users.get(2)) && !selected[2]) {
+                person3.setVisibility(View.VISIBLE);
+            } else {
+                person3.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -382,6 +439,21 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             Log.e("UserLoad", "Failed to load user list: " + e.getMessage());
         }
         return userList;
+    }
+
+    public User loadUser() {
+        User user = null;
+        try {
+            FileInputStream fileInputStream = openFileInput("user_profile.ser");
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            user = (User) objectInputStream.readObject();
+            objectInputStream.close();
+            fileInputStream.close();
+            Log.d("UserLoad", "User list loaded successfully.");
+        } catch (IOException | ClassNotFoundException e) {
+            Log.e("UserLoad", "Failed to load user list: " + e.getMessage());
+        }
+        return user;
     }
 
 }

@@ -21,7 +21,10 @@
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:text="Name"
-        android:textColor="#FFFFFF" />
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/userRating"
@@ -29,7 +32,10 @@
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:text="Rating"
-        android:textColor="#FFFFFF" />
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/carDescription"
@@ -37,7 +43,10 @@
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
         android:text="Car"
-        android:textColor="#FFFFFF" />
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/addToGroup"

@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">CarMate</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="preferences">
+    <item>None</item>
+    <item>Pay For Ride</item>
+        <item>No Pay For Ride</item>
+        <item>Music</item>
+    <item>No Music</item>
+
+
+    </string-array>
 </resources>

@@ -3,8 +3,11 @@ package com.example.carmate;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -27,6 +30,8 @@ public class ProfileActivity extends AppCompatActivity {
     List<User> users;
     User user;
     int selectedUser;
+    Spinner preferences;
+    Button saveProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,28 +44,59 @@ public class ProfileActivity extends AppCompatActivity {
             return insets;
         });
 //        user = new User("John", "Jenkins", R.drawable.john, "passenger");
+//        user.setRating(4);
+//        user.setPreferences(0);
 //        saveUser(user);
 
+        saveProfile = findViewById(R.id.saveProfile);
         Intent intent = getIntent();
         users = (List<User>)intent.getSerializableExtra("users");
+        preferences = findViewById(R.id.preferencesSpinner);
         if(users == null){
             user = loadUser();
         }else{
             selectedUser = intent.getIntExtra("selectedUser", 0);
             user = users.get(selectedUser);
+            saveProfile.setVisibility(View.GONE);
+            preferences.setVisibility(View.GONE);
         }
 
         TextView userNameProfile = findViewById(R.id.userNameProfile);
         ImageView profilePicture = findViewById(R.id.profilePicture);
         TextView rating = findViewById(R.id.userProfileRating);
         TextView mainStatus = findViewById(R.id.mainProfileStatus);
-        Button saveProfile = findViewById(R.id.saveProfile);
+
         userNameProfile.setText(user.getFullName());
         profilePicture.setImageResource(user.getImgId());
         rating.setText("Rating: " + user.getRating());
         mainStatus.setText(user.getMainStatus());
 
+        ArrayAdapter<CharSequence> adapter =
+                ArrayAdapter.createFromResource(this,
+                        R.array.preferences, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        preferences.setAdapter(adapter);
+        preferences.setSelection(user.getPreference());
+
     }
+
+    public void saveProfile(View view){
+        String value = preferences.getSelectedItem().toString();
+        switch(value){
+            case "None": user.setPreferences(0);
+                    break;
+            case "Pay For Ride": user.setPreferences(1);
+                break;
+            case "No Pay For Ride": user.setPreferences(2);
+                break;
+            case "Music": user.setPreferences(3);
+                break;
+            case "No Music": user.setPreferences(4);
+                break;
+        }
+        saveUser(user);
+    }
+
     private void setBottomNavigationSelectedItem(int itemId) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.bottom_navigation_fragment);

@@ -127,15 +127,19 @@ public class FriendsActivity extends AppCompatActivity {
         ImageView profileImage = dialogView.findViewById(R.id.userDetailProfileImage);
         TextView nameText = dialogView.findViewById(R.id.userDetailName);
         TextView rating = dialogView.findViewById(R.id.userRating);
-        Button messageButton = dialogView.findViewById(R.id.blockButton);
+        Button viewProfileButton = dialogView.findViewById(R.id.viewProfileButton);
         Button blockButton = dialogView.findViewById(R.id.blockButton);
 
         profileImage.setImageResource(user.getImgId());
         nameText.setText(user.getFullName());
         rating.setText("Rating " + String.format("%.1f",user.getRating()));
 
-        messageButton.setOnClickListener(v -> {
-            Toast.makeText(this, "Messaging " + user.getFullName(), Toast.LENGTH_SHORT).show();
+        viewProfileButton.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ProfileActivity.class);
+            intent.putExtra("users", (Serializable) users);
+            intent.putExtra("selectedUser", users.indexOf(user));
+            startActivity(intent);
+            finish();
         });
 
         builder.setView(dialogView);

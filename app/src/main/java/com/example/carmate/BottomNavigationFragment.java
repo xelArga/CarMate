@@ -38,7 +38,7 @@ public class BottomNavigationFragment extends Fragment {
                     targetActivity = MainActivity.class;
                 } else if (itemId == R.id.navigation_friends && !(context instanceof FriendsActivity)) {
                     targetActivity = FriendsActivity.class;
-                } else if (itemId == R.id.navigation_chat && !(context instanceof ChatListActivity)) {
+                } else if (itemId == R.id.navigation_chat && !(context instanceof ChatListActivity || context instanceof ChatActivity)) {
                     targetActivity = ChatListActivity.class;
                 } else if (itemId == R.id.navigation_profile && !(context instanceof ProfileActivity)) {
                     targetActivity = ProfileActivity.class;

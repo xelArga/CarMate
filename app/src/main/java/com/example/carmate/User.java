@@ -1,6 +1,8 @@
 package com.example.carmate;
 
 import java.io.Serializable;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,6 +26,7 @@ public class User implements Serializable {
         driverOrPassenger = new String[]{"driver", "passenger"};
         setMainStatus(mainStatus);
         ratingCount = 0;
+        messages = new LinkedList<>(Collections.singletonList(new Message("You: Hello", true)));
     }
 
     public String getFirstName(){
@@ -56,6 +59,10 @@ public class User implements Serializable {
 
     public String getMainStatus(){
         return this.mainStatus;
+    }
+
+    public String getLastMessage(){
+        return messages.get(messages.size() -1).getContent();
     }
 
     public void setMainStatus(String mainStatus){

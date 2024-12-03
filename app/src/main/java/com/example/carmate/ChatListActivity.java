@@ -1,12 +1,14 @@
 package com.example.carmate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -17,6 +19,7 @@ import androidx.fragment.app.FragmentManager;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +41,7 @@ public class ChatListActivity extends AppCompatActivity {
         });
 
         users = loadUsers();
-        adapter = new UserAdapter(this, users);
+        adapter = new UserAdapter(this, users, true, R.layout.list_item_chat);
         friendSearch = findViewById(R.id.friendSearchView);
         friendSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -54,6 +57,9 @@ public class ChatListActivity extends AppCompatActivity {
         });
         friendList = findViewById(R.id.friendListView);
         friendList.setAdapter(adapter);
+        friendList.setOnItemClickListener((parent, view, position, id) -> {
+            startChat(position);
+        });
     }
 
     private void setBottomNavigationSelectedItem(int itemId) {
@@ -68,6 +74,22 @@ public class ChatListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         setBottomNavigationSelectedItem(R.id.navigation_chat);
+    }
+
+    private final ActivityResultLauncher<Intent> chatLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    users = loadUsers();
+                    adapter.changeList(users);
+                    adapter.notifyDataSetChanged();
+                }
+            });
+
+    public void startChat(int selectedUser){
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra("users", (Serializable) users);
+        intent.putExtra("selectedUser", selectedUser);
+        chatLauncher.launch(intent);
     }
 
     public List<User> loadUsers() {

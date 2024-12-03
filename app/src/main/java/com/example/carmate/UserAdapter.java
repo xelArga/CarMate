@@ -18,23 +18,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserAdapter extends BaseAdapter implements Filterable {
-    private Context context;
+    private final Context context;
     private List<User> userList;
     private List<User> filteredUserList;
     private final boolean isChatList;
     private OnChatClickListener onChatClickListener;
+    private final int resourceLayout;
 
-    public UserAdapter(Context context, List<User> userList, OnChatClickListener onChatClickListener) {
+    public UserAdapter(Context context, List<User> userList, boolean isChatList, int resource) {
         this.context = context;
         this.userList = new ArrayList<>(userList);
         this.filteredUserList = userList;
-        this.onChatClickListener = onChatClickListener;
+        this.isChatList = isChatList;
+        resourceLayout = resource;
     }
 
-    public UserAdapter(Context context, List<User> userList) {
-        this.context = context;
-        this.userList = new ArrayList<>(userList);
-        this.filteredUserList = userList;
+    public void changeList(List<User> updatedList){
+        userList = new ArrayList<>(updatedList);
+        filteredUserList = userList;
+    }
+
+    public void setOnChatClickListener(OnChatClickListener onChatClickListener){
+        this.onChatClickListener = onChatClickListener;
     }
 
     @Override
@@ -56,7 +61,7 @@ public class UserAdapter extends BaseAdapter implements Filterable {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.list_item_user, parent, false);
+            convertView = LayoutInflater.from(context).inflate(resourceLayout, parent, false);
         }
 
         User user = getItem(position);
@@ -65,14 +70,18 @@ public class UserAdapter extends BaseAdapter implements Filterable {
 
         userNameTextView.setText(user.getFullName());
         profileImageView.setImageResource(user.getImgId());
-        ImageView chatIcon = convertView.findViewById(R.id.chatIcon);
-        chatIcon.setOnClickListener(v -> {
-            if (onChatClickListener != null) {
-                onChatClickListener.onChatClick(user);
-            }
-        });
-
-        return convertView;
+        if(isChatList){
+            TextView lastMessageTextView = convertView.findViewById(R.id.lastMessage);
+            lastMessageTextView.setText(user.getLastMessage());
+        }else{
+            ImageView chatIcon = convertView.findViewById(R.id.chatIcon);
+            chatIcon.setOnClickListener(v -> {
+                if (onChatClickListener != null) {
+                    onChatClickListener.onChatClick(user);
+                }
+            });
+        }
+       return convertView;
     }
 
     @Override

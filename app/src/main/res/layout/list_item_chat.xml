@@ -29,11 +29,24 @@
         android:id="@+id/lastMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="19dp"
+        android:layout_toEndOf="@+id/templateMessage"
+        android:fontFamily="serif"
+        android:text="Last Message"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
         android:layout_centerVertical="true"
-        android:layout_marginStart="76dp"
+        android:textSize="16sp"
+        android:textStyle="italic" />
+
+    <TextView
+        android:id="@+id/templateMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
         android:layout_toEndOf="@+id/userName"
         android:text="Last Message"
-        android:textColor="@android:color/black"
-        android:textSize="18sp" />
+        android:layout_centerVertical="true"
+        android:textSize="16sp" />
 
 </RelativeLayout>

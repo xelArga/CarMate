@@ -46,9 +46,7 @@ public class FriendsActivity extends AppCompatActivity {
         });
 
         users = loadUsers();
-        adapter = new UserAdapter(this, users, user ->{
-            Toast.makeText(this, "Chat with " + user.getFullName(), Toast.LENGTH_SHORT).show();
-        });
+        adapter = new UserAdapter(this, users, false, R.layout.list_item_user);
         friendSearch = findViewById(R.id.friendSearchView);
         friendSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -63,6 +61,8 @@ public class FriendsActivity extends AppCompatActivity {
             }
         });
         friendList = findViewById(R.id.friendListView);
+        adapter.setOnChatClickListener(v -> {
+            Toast.makeText(this, "Action 1 Clicked", Toast.LENGTH_SHORT).show();});
         friendList.setAdapter(adapter);
         friendList.setOnItemClickListener((parent, view, position, id) -> {
             User selectedUser = users.get(position);

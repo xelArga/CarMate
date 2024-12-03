@@ -1,8 +1,10 @@
 package com.example.carmate;
 
-public class Message {
-    private String content;
-    private boolean isSent;
+import java.io.Serializable;
+
+public class Message implements Serializable {
+    private final String content;
+    private final boolean isSent;
 
     public Message(String content, boolean isSent) {
         this.content = content;

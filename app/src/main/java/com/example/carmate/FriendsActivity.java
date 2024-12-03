@@ -1,6 +1,7 @@
 package com.example.carmate;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -24,6 +27,7 @@ import androidx.fragment.app.FragmentManager;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +50,9 @@ public class FriendsActivity extends AppCompatActivity {
         });
 
         users = loadUsers();
-        adapter = new UserAdapter(this, users, false, R.layout.list_item_user);
+        adapter = new UserAdapter(this, users, false, R.layout.list_item_user, user -> {
+            startChat(users.indexOf(user));
+        });
         friendSearch = findViewById(R.id.friendSearchView);
         friendSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -61,8 +67,6 @@ public class FriendsActivity extends AppCompatActivity {
             }
         });
         friendList = findViewById(R.id.friendListView);
-        adapter.setOnChatClickListener(v -> {
-            Toast.makeText(this, "Action 1 Clicked", Toast.LENGTH_SHORT).show();});
         friendList.setAdapter(adapter);
         friendList.setOnItemClickListener((parent, view, position, id) -> {
             User selectedUser = users.get(position);
@@ -99,6 +103,23 @@ public class FriendsActivity extends AppCompatActivity {
 
 
     }
+
+    private final ActivityResultLauncher<Intent> chatLauncher =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+                if (result.getResultCode() == RESULT_OK) {
+                    users = loadUsers();
+                    adapter.changeList(users);
+                    adapter.notifyDataSetChanged();
+                }
+            });
+
+    public void startChat(int selectedUser){
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra("users", (Serializable) users);
+        intent.putExtra("selectedUser", selectedUser);
+        chatLauncher.launch(intent);
+    }
+
     private void showUserDetailsPopup(User user) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_user_details, null);

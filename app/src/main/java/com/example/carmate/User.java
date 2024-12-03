@@ -11,6 +11,7 @@ public class User implements Serializable {
     private int profileImageId;
     public String[] driverOrPassenger; //for printing if you know which is their main one
     private String mainStatus;
+
     private double rating;
     private int ratingCount;
     List<Message> messages;

@@ -33,6 +33,15 @@ public class UserAdapter extends BaseAdapter implements Filterable {
         resourceLayout = resource;
     }
 
+    public UserAdapter(Context context, List<User> userList, boolean isChatList, int resource, OnChatClickListener onChatClickListener) {
+        this.context = context;
+        this.userList = new ArrayList<>(userList);
+        this.filteredUserList = userList;
+        this.isChatList = isChatList;
+        resourceLayout = resource;
+        this.onChatClickListener = onChatClickListener;
+    }
+
     public void changeList(List<User> updatedList){
         userList = new ArrayList<>(updatedList);
         filteredUserList = userList;

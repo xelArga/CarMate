@@ -43,10 +43,6 @@ public class ProfileActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-//        user = new User("John", "Jenkins", R.drawable.john, "passenger");
-//        user.setRating(4);
-//        user.setPreferences(0);
-//        saveUser(user);
 
         saveProfile = findViewById(R.id.saveProfile);
         Intent intent = getIntent();
@@ -118,9 +114,9 @@ public class ProfileActivity extends AppCompatActivity {
             objectOutputStream.writeObject(user);
             objectOutputStream.close();
             fileOutputStream.close();
-            Log.d("UserSave", "User list saved successfully.");
+            Log.d("UserSave", "User saved successfully.");
         } catch (IOException e) {
-            Log.e("UserSave", "Failed to save user list: " + e.getMessage());
+            Log.e("UserSave", "Failed to save user: " + e.getMessage());
         }
     }
 
@@ -132,9 +128,9 @@ public class ProfileActivity extends AppCompatActivity {
             user = (User) objectInputStream.readObject();
             objectInputStream.close();
             fileInputStream.close();
-            Log.d("UserLoad", "User list loaded successfully.");
+            Log.d("UserLoad", "User loaded successfully.");
         } catch (IOException | ClassNotFoundException e) {
-            Log.e("UserLoad", "Failed to load user list: " + e.getMessage());
+            Log.e("UserLoad", "Failed to load user: " + e.getMessage());
         }
         return user;
     }

@@ -97,14 +97,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             return insets;
         });
 
-//        users = new ArrayList<>();
-//        users.add(new User("Jason", "Smith", R.drawable.jason, "passenger"));
-//        users.add(new User("Jenny", "Green", R.drawable.jenny, "passenger")); //code for loading in test users
-//        users.add(new User("Chris", "Crank", R.drawable.chris, "driver"));
-//        users.get(0).setPreferences(0);
-//        users.get(1).setPreferences(4);
-//        users.get(2).setPreferences(1);
-//        saveUsers(users);
         users = loadUsers();
         user = loadUser();
 

@@ -18,3 +18,9 @@ welcome to delete your local version of the branch by first moving out of it to 
 with `git checkout main` then `git branch -D <branch-name>`. 
 7. To make sure your main is updated after a pull request, use `git pull` to retrieve from the
 remote repository.
+
+# Getting Maps API Key Working
+1. Find your maps API key from google cloud console
+2. Enable the use of this key for com.example.carmate with your SHA1 package signature for your computer
+3. Find your root level `local.properties` file and put in MAPS_API_KEY="yourkey"
+

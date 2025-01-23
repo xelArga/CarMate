@@ -1,7 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
-
+def directionsApiKey = project.findProperty("DIRECTIONS_API_KEY") ?: ""
+android.buildFeatures.buildConfig true
 android {
     namespace 'com.example.carmate'
     compileSdk 34
@@ -12,6 +14,7 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "DIRECTIONS_API_KEY", "\"${directionsApiKey}\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -37,4 +40,6 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+    implementation libs.play.services.maps
+    implementation libs.okhttp
 }

@@ -4,7 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,57 +26,73 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class MainActivity extends AppCompatActivity {
-    Button button;
+public class ProfileActivity extends AppCompatActivity {
     List<User> users;
     User user;
+    int selectedUser;
+    Spinner preferences;
+    Button saveProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_profile);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
-
         });
-        users = loadUsers();
-        if(users.isEmpty()){
-            users = new ArrayList<>();
-            users.add(new User("Jason", "Smith", R.drawable.jason, "passenger"));
-            users.add(new User("Jenny", "Green", R.drawable.jenny, "passenger")); //code for loading in test users
-            users.add(new User("Chris", "Crank", R.drawable.chris, "driver"));
-            users.get(0).setPreferences(0);
-            users.get(1).setPreferences(4);
-            users.get(2).setPreferences(1);
-            users.get(0).setRating(4);
-            users.get(1).setRating(3);
-            users.get(2).setRating(3);
-            saveUsers(users);
+
+        saveProfile = findViewById(R.id.saveProfile);
+        Intent intent = getIntent();
+        users = (List<User>)intent.getSerializableExtra("users");
+        preferences = findViewById(R.id.preferencesSpinner);
+        if(users == null){
+            user = loadUser();
+        }else{
+            selectedUser = intent.getIntExtra("selectedUser", 0);
+            user = users.get(selectedUser);
+            saveProfile.setVisibility(View.GONE);
+            preferences.setVisibility(View.GONE);
         }
-        user = loadUser();
-        if(user == null){
-            user = new User("John", "Jenkins", R.drawable.john, "passenger");
-            user.setRating(4);
-            user.setPreferences(0);
-            saveUser(user);
-        }
+
+        TextView userNameProfile = findViewById(R.id.userNameProfile);
+        ImageView profilePicture = findViewById(R.id.profilePicture);
+        TextView rating = findViewById(R.id.userProfileRating);
+        TextView mainStatus = findViewById(R.id.mainProfileStatus);
+
+        userNameProfile.setText(user.getFullName());
+        profilePicture.setImageResource(user.getImgId());
+        rating.setText("Rating: " + user.getRating());
+        mainStatus.setText(user.getMainStatus());
+
+        ArrayAdapter<CharSequence> adapter =
+                ArrayAdapter.createFromResource(this,
+                        R.array.preferences, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        preferences.setAdapter(adapter);
+        preferences.setSelection(user.getPreference());
+
     }
 
-    public void startDriver(View view){
-        Intent intent = new Intent(this, MapActivity.class);
-        intent.putExtra("selection",  "driver");
-        startActivity(intent);
+    public void saveProfile(View view){
+        String value = preferences.getSelectedItem().toString();
+        switch(value){
+            case "None": user.setPreferences(0);
+                    break;
+            case "Pay For Ride": user.setPreferences(1);
+                break;
+            case "No Pay For Ride": user.setPreferences(2);
+                break;
+            case "Music": user.setPreferences(3);
+                break;
+            case "No Music": user.setPreferences(4);
+                break;
+        }
+        saveUser(user);
     }
 
-    public void startPassenger(View view){
-        Intent intent = new Intent(this, MapActivity.class);
-        intent.putExtra("selection",  "passenger");
-        startActivity(intent);
-    }
     private void setBottomNavigationSelectedItem(int itemId) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment fragment = fragmentManager.findFragmentById(R.id.bottom_navigation_fragment);
@@ -81,33 +101,10 @@ public class MainActivity extends AppCompatActivity {
             ((BottomNavigationFragment) fragment).setSelectedMenuItem(itemId);
         }
     }
-
-    public void saveUsers(List<User> userList) {
-        try {
-            FileOutputStream fileOutputStream = openFileOutput("users_data.ser", MODE_PRIVATE);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            objectOutputStream.writeObject(userList);
-            objectOutputStream.close();
-            fileOutputStream.close();
-            Log.d("UserSave", "User list saved successfully.");
-        } catch (IOException e) {
-            Log.e("UserSave", "Failed to save user list: " + e.getMessage());
-        }
-    }
-
-    public List<User> loadUsers() {
-        List<User> userList = new ArrayList<>();
-        try {
-            FileInputStream fileInputStream = openFileInput("users_data.ser");
-            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
-            userList = (List<User>) objectInputStream.readObject();
-            objectInputStream.close();
-            fileInputStream.close();
-            Log.d("UserLoad", "User list loaded successfully.");
-        } catch (IOException | ClassNotFoundException e) {
-            Log.e("UserLoad", "Failed to load user list: " + e.getMessage());
-        }
-        return userList;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setBottomNavigationSelectedItem(R.id.navigation_profile);
     }
 
     public void saveUser(User user) {
@@ -137,5 +134,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return user;
     }
-
 }
